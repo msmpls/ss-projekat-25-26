@@ -1,0 +1,20 @@
+# School ELF v1.0 - SS Project 2025/26
+# Assembler output (single-pass, with backpatching)
+
+[symtab]
+# idx value      type   bind  ndx  name
+   0 0x00000000  NOTYP   LOC   UND  
+   1 0x00000000   SCTN   LOC     1  isr
+   2 0x00000000  NOTYP  GLOB     1  isr_software
+   3 0x00000000  NOTYP  GLOB   UND  value1
+
+[section=isr]
+# base=0x00000000 size=0x00000030
+0x0000: fc 1f e0 81 fc 2f e0 81 04 00 1f 92 04 00 f0 30 
+0x0010: cd ab 00 00 04 00 2f 92 04 00 f0 30 00 00 00 00 
+0x0020: 00 10 20 80 04 00 2e 93 04 00 1e 93 04 00 fe 93 
+
+[rela=isr]
+# offset type         symbol  addend
+0x001c     R_ABS_32    3  (value1)              0
+

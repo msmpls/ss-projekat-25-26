@@ -1,0 +1,36 @@
+# School ELF v1.0 - SS Project 2025/26
+# Assembler output (single-pass, with backpatching)
+
+[symtab]
+# idx value      type   bind  ndx  name
+   0 0x00000000  NOTYP   LOC   UND  
+   1 0x00000000   SCTN   LOC     1  my_handler
+   2 0x0000003c  NOTYP   LOC     1  finish
+   3 0x00000068  NOTYP   LOC     1  handle_software
+   4 0x00000058  NOTYP   LOC     1  handle_terminal
+   5 0x00000048  NOTYP   LOC     1  handle_timer
+   6 0x00000000  NOTYP  GLOB     1  handler
+   7 0x00000000  NOTYP  GLOB   UND  isr_software
+   8 0x00000000  NOTYP  GLOB   UND  isr_terminal
+   9 0x00000000  NOTYP  GLOB   UND  isr_timer
+
+[section=my_handler]
+# base=0x00000000 size=0x00000078
+0x0000: fc 1f e0 81 fc 2f e0 81 00 00 12 90 02 00 20 91 
+0x0010: 04 20 f1 39 04 00 f0 30 00 00 00 00 03 00 20 91 
+0x0020: 04 20 f1 39 04 00 f0 30 00 00 00 00 04 00 20 91 
+0x0030: 04 20 f1 39 04 00 f0 30 00 00 00 00 04 00 2e 93 
+0x0040: 04 00 1e 93 00 00 00 01 04 00 f0 21 04 00 f0 30 
+0x0050: 00 00 00 00 e4 0f f0 30 04 00 f0 21 04 00 f0 30 
+0x0060: 00 00 00 00 d4 0f f0 30 04 00 f0 21 04 00 f0 30 
+0x0070: 00 00 00 00 c4 0f f0 30 
+
+[rela=my_handler]
+# offset type         symbol  addend
+0x0038     R_ABS_32    3  (handle_software)     0
+0x0028     R_ABS_32    4  (handle_terminal)     0
+0x0018     R_ABS_32    5  (handle_timer)        0
+0x0070     R_ABS_32    7  (isr_software)        0
+0x0060     R_ABS_32    8  (isr_terminal)        0
+0x0050     R_ABS_32    9  (isr_timer)           0
+

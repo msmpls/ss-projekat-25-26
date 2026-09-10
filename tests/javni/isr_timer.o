@@ -1,0 +1,13 @@
+# School ELF v1.0 - SS Project 2025/26
+# Assembler output (single-pass, with backpatching)
+
+[symtab]
+# idx value      type   bind  ndx  name
+   0 0x00000000  NOTYP   LOC   UND  
+   1 0x00000000   SCTN   LOC     1  isr
+   2 0x00000000  NOTYP  GLOB     1  isr_timer
+
+[section=isr]
+# base=0x00000000 size=0x00000004
+0x0000: 04 00 fe 93 
+
