@@ -12,15 +12,13 @@
  *   5. Primena relokacija - upisuje finalne adrese u kod
  *   6. Generiše izlaz:
  *        -hex         → format adresa: bajt bajt... za inicijalizaciju memorije
- *        -relocatable → novi .o sa spojenim sekcijama
  *
  * CLI: linker [opcije] <ulaz1.o> <ulaz2.o> ...
  *   -o <izlaz>                 naziv izlazne datoteke
  *   -place=<sek>@<adresa>      eksplicitna adresa sekcije (može više puta)
  *   -hex                       generiši hex zapis
- *   -relocatable               generiši novi .o
  *
- * Pažnja: tačno jedna od -hex / -relocatable mora biti navedena.
+ * Pažnja: -hex opcija je obavezna.
  */
 
 #include "types.hpp"
@@ -49,7 +47,6 @@ private:
     std::vector<std::string> input_files_;
     std::unordered_map<std::string, uint32_t> place_options_;  // sekcija → adresa
     bool mode_hex_;
-    bool mode_relocatable_;
 
     // ---- Unutrasnje strukture ----
     std::vector<InputFile>     input_files_data_;
@@ -102,9 +99,6 @@ private:
     // Izlaz za -hex mod
     void writeHexOutput(const std::string& filename);
 
-    // Izlaz za -relocatable mod
-    void writeRelocatableOutput(const std::string& filename);
-
     // Parsiranje -place=<sek>@<adresa> argumenta
     bool parsePlaceOption(const std::string& arg);
 
@@ -116,9 +110,9 @@ private:
     // Pomocno za skip blank linija i komentara
     static std::string trim(const std::string& s);
     static std::vector<std::string> split(const std::string& s);
+    static bool isHexDigit(char c);
     static uint32_t parseHex(const std::string& s);
     static int32_t parseDec(const std::string& s);
-    static bool isHexDigit(char c);
 
     // Dodaj gresku
     void addError(const std::string& msg) { errors_.push_back(msg); }
