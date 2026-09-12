@@ -525,7 +525,7 @@ bool Linker::mergeSymbols()
             if (sym.is_extern || !sym.is_defined) {
                 bool resolved = false;
                 for (auto& ms : merged_symbols_) {
-                    if (ms.name == sym.name && ms.is_defined) {
+                    if (ms.name == sym.name && ms.is_defined && ms.is_global) {
                         resolved = true;
                         break;
                     }
@@ -553,7 +553,7 @@ bool Linker::mergeSymbols()
 
             if (sym.is_global) {
                 for (auto& ms : merged_symbols_) {
-                    if (ms.name == sym.name && ms.is_defined && !ms.is_extern) {
+                    if (ms.name == sym.name && ms.is_defined && !ms.is_extern && ms.is_global) {
                         addError("Višestruka definicija simbola: " + sym.name);
                         return false;
                     }
@@ -563,7 +563,7 @@ bool Linker::mergeSymbols()
             bool updated_existing = false;
             if (sym.is_global) {
                 for (auto& ms : merged_symbols_) {
-                    if (ms.name == sym.name && ms.is_extern && !ms.is_defined) {
+                    if (ms.name == sym.name && ms.is_extern && !ms.is_defined && ms.is_global) {
                         ms.is_extern = false;
                         ms.is_defined = true;
                         ms.is_global = true;
