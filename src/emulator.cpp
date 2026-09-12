@@ -467,10 +467,18 @@ void Emulator::dumpRegisters() const
     for (int i = 0; i < 16; i += 4) {
         for (int j = 0; j < 4; j++) {
             int idx = i + j;
-            std::cout << "r" << std::setw(2) << std::setfill(' ') << idx << "=0x"
+            // Ispisujemo "r" pa indeks bez razmaka
+            std::cout << "r" << idx << "=0x"
                       << std::hex << std::setfill('0') << std::setw(8)
                       << gpr_[idx] << std::dec;
-            if (j < 3) std::cout << "    ";
+            // Razmak između registara (4 za jednocifrene, 3 za dvocifrene da se poravna)
+            if (j < 3) {
+                if (idx < 10) {
+                    std::cout << "    ";
+                } else {
+                    std::cout << "   ";
+                }
+            }
         }
         std::cout << "\n";
     }
