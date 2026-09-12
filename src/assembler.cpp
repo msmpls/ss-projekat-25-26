@@ -20,10 +20,7 @@
 #include <algorithm>
 #include <cstring>
 
-// =========================================================================
-// Konstruktor / destruktor
-// =========================================================================
-
+//Konstruktor destrutor
 Assembler::Assembler()
     : current_section_(""), loc_counter_(0), next_section_id_(1)
 {
@@ -33,10 +30,7 @@ Assembler::~Assembler()
 {
 }
 
-// =========================================================================
-// Pomocne metode
-// =========================================================================
-
+//Pomocne metode
 Symbol& Assembler::getOrCreateSymbol(const std::string& name)
 {
     auto it = symbols_.find(name);
@@ -72,9 +66,7 @@ Section& Assembler::getOrCreateSection(const std::string& name)
     return sections_.back();
 }
 
-// =========================================================================
-// Sekcije
-// =========================================================================
+//Sekcije
 
 void Assembler::switchSection(const std::string& name)
 {
@@ -110,9 +102,7 @@ void Assembler::switchSection(const std::string& name)
     loc_counter_ = sec.bytes.size();
 }
 
-// =========================================================================
-// Simboli
-// =========================================================================
+//Simboli
 
 void Assembler::defineLabel(const std::string& name)
 {
@@ -184,10 +174,7 @@ std::string Assembler::getSymbolSection(const std::string& name)
     return it->second.section;
 }
 
-// =========================================================================
-// Emitovanje koda
-// =========================================================================
-
+//Emitovanje koda
 void Assembler::emitByte(uint8_t b)
 {
     Section* sec = getCurrentSection();
@@ -281,10 +268,7 @@ void Assembler::updateLastWord(uint32_t w)
     sec->bytes[n - 1] = static_cast<uint8_t>((w >> 24) & 0xFF);
 }
 
-// =========================================================================
-// Backpatching
-// =========================================================================
-
+//Backpatching
 void Assembler::addPatch(const std::string& symbol, int offset,
                          char action, int addend, RelocType type)
 {
@@ -429,10 +413,7 @@ void Assembler::patchToRelocation(Patch& p)
     sec->relocations.push_back(r);
 }
 
-// =========================================================================
-// Finalizacija
-// =========================================================================
-
+//Finalizacija
 void Assembler::finalize()
 {
     // 1. Snimi velicinu poslednje sekcije
@@ -527,10 +508,7 @@ void Assembler::assignSymbolIndices()
     }
 }
 
-// =========================================================================
-// Izlaz - writeOutput (skolski ELF tekstualni format)
-// =========================================================================
-
+//Izlaz - writeout Skolski elf format
 static std::string relocTypeStr(RelocType t)
 {
     switch (t) {

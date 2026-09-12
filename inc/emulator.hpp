@@ -44,19 +44,13 @@ public:
     const std::vector<std::string>& errors() const { return errors_; }
 
 private:
-    // ===== Memorija =====
     // 32-bitni adresni prostor (4GB) - koristimo hash mapu za sparse memoriju.
     // Neinicijalizovane adrese se tretiraju kao 0.
     std::unordered_map<uint32_t, uint8_t> memory_;
-
-    // ===== Registar =====
     uint32_t gpr_[16];   // r0-r15 (r0 uvek 0, r14=sp, r15=pc)
     uint32_t csr_[3];    // status=0, handler=1, cause=2
 
-    // ===== Greske =====
     std::vector<std::string> errors_;
-
-    // ===== Pomocne metode =====
 
     // Pristup memoriji (1 bajt)
     uint8_t  readByte(uint32_t addr);

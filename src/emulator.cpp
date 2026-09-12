@@ -31,10 +31,6 @@
 #include <sstream>
 #include <iomanip>
 
-// =========================================================================
-// Konstruktor / destruktor
-// =========================================================================
-
 Emulator::Emulator()
 {
     // Inicijalizacija registara
@@ -48,10 +44,7 @@ Emulator::Emulator()
 
 Emulator::~Emulator() {}
 
-// =========================================================================
-// Pristup memoriji
-// =========================================================================
-
+//Pristup memoriji
 uint8_t Emulator::readByte(uint32_t addr)
 {
     auto it = memory_.find(addr);
@@ -82,10 +75,7 @@ void Emulator::writeWord(uint32_t addr, uint32_t val)
     writeByte(addr + 2, (uint8_t)((val >> 16) & 0xFF));
     writeByte(addr + 3, (uint8_t)((val >> 24) & 0xFF));
 }
-
-// =========================================================================
-// Pristup registrima
-// =========================================================================
+//Pristup registrima
 
 uint32_t Emulator::getGPR(int idx) const
 {
@@ -113,10 +103,7 @@ void Emulator::setCSR(int idx, uint32_t val)
     csr_[idx] = val;
 }
 
-// =========================================================================
-// Učitavanje hex fajla
-// =========================================================================
-
+// ucitavanje hex fajla
 bool Emulator::loadHex(const std::string& filename)
 {
     std::ifstream file(filename);
@@ -169,10 +156,7 @@ bool Emulator::loadHex(const std::string& filename)
     file.close();
     return true;
 }
-
-// =========================================================================
-// Pomoćne funkcije
-// =========================================================================
+//pomocne fje
 
 int32_t Emulator::signExtend12(uint32_t val)
 {
@@ -184,9 +168,7 @@ int32_t Emulator::signExtend12(uint32_t val)
     return (int32_t)val;
 }
 
-// =========================================================================
-// Izvršavanje instrukcija
-// =========================================================================
+//izvsavanje instrukcija
 
 bool Emulator::executeInstruction(uint32_t instr)
 {
@@ -452,10 +434,7 @@ bool Emulator::executeInstruction(uint32_t instr)
     }
 }
 
-// =========================================================================
-// Glavna petlja izvršavanja
-// =========================================================================
-
+//GLAVNA PETLJA
 void Emulator::run()
 {
     // Limit iteracija da izbegnemo beskonačnu petlju u slučaju bag-a u programu
@@ -477,10 +456,7 @@ void Emulator::run()
     }
 }
 
-// =========================================================================
-// Ispis stanja registara
-// =========================================================================
-
+//ISPIS STANJA REGS
 void Emulator::dumpRegisters() const
 {
     std::cout << "-----------------------------------------------------------------\n";
@@ -500,10 +476,7 @@ void Emulator::dumpRegisters() const
     }
 }
 
-// =========================================================================
-// main - ulazna tačka emulatora
-// =========================================================================
-
+//main - ulazna tacka emulatora
 int main(int argc, char* argv[])
 {
     if (argc != 2) {
