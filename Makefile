@@ -45,4 +45,4 @@ clean:
 	    misc/parser.tab.c misc/parser.tab.h misc/parser.tab.o \
 	    misc/lex.yy.c misc/lex.yy.o \
 	    src/*.o \
-	    tests/javni/*.o tests/javni/*.hex
+	    tests/javni/*.o tests/javni/*.hex 

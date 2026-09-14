@@ -83,6 +83,9 @@ void yyerror(const char* s);
 // Globalni asembler (jedna instanca po pokretanju)
 Assembler assm;
 
+// Globalni brojač semantičkih grešaka (pozivi yyerror iz akcija)
+static int semantic_errors = 0;
+
 // Lista simbola za .global / .extern (akumulira se u symbol_list produkcijama)
 std::vector<std::string> sym_list;
 
@@ -893,7 +896,7 @@ int main(int argc, char* argv[])
     // Finalizacija: snimi velicine sekcija, kreiraj relokacije
     assm.finalize();
 
-    if (assm.hasErrors()) {
+    if (assm.hasErrors() || semantic_errors > 0) {
         fprintf(stderr, "Greske pri asembliranju:\n");
         for (auto& e : assm.errors()) {
             fprintf(stderr, "  %s\n", e.c_str());
@@ -907,7 +910,9 @@ int main(int argc, char* argv[])
     return 0;
 }
 
+
 void yyerror(const char* s)
 {
     fprintf(stderr, "Greska (linija %d): %s\n", yylineno, s);
+    semantic_errors++;
 }
